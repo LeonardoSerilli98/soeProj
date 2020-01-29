@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    protected $fillable = ['name','email','password','corso_laurea',];
     public function AuthAcessToken(){
         return $this->hasMany('\App\OauthAccessToken');
     }

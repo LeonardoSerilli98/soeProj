@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Course;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,10 +50,23 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $dominio =  substr($data["email"], strpos($data["email"], '@')+1);
+
+        $uniMailValidation = Course::join('universities', 'universities.id', '=', 'courses.universita')
+            ->where('courses.id', '=', $data["corsoDiLaurea"])
+            ->where('universities.dominio', '=', $dominio)
+            ->get();
+
+        if($uniMailValidation->isEmpty()){
+            return 'la mail non appartiene a nessuna universita';
+        }
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'universita'=> ['required' , 'int'],
+            'corsoDiLaurea'=> ['required' , 'int'],
         ]);
     }
 
@@ -68,6 +82,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'corso_laurea'=> $data['corsoDiLaurea'],
         ]);
     }
 }
