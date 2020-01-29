@@ -61,7 +61,7 @@ Route::prefix('pages')->group(function () {
     Route::get('/search','PageController@search');
     Route::get('/search/sort','PageController@sort');
     Route::get('/search/advancedFilter/sort','PageController@sort');
-    Route::get('/search/advanedFilter','PageController@advancedFilter');
+    Route::get('/search/advancedFilter','PageController@advancedFilter');
     Route::apiResource('/','PageController');
     Route::apiResource('/{idPagina}/contents','contentsController');
 });

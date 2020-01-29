@@ -23,7 +23,7 @@ class Page extends JsonResource
             'creata_da' => $this->creata_da,
             'materia' => $this->materia,
             'nome_pagina' => $this->nome_pagina,
-            'contenuto' => ContentResource::collection($contents),
+            'contenuto' => $contents,
         ];
     }
 }

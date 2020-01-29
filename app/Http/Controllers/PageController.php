@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Content as ContentResource;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -99,33 +100,48 @@ class PageController extends Controller
     public function search(Request $request)
     {
 
-        if(!$request->exists('subject') && !$request->exists('user')){
+        $succes = false;
+        $results = Page::all();
+        //$path = '/api/pages/search?';
+
+        if($request->exists('user')){
+
+            $results->where('creata_da', $request->user);
+            $succes = true;
+
+        }
+
+
+        if($request->exists('subject')){
+
+            $results->where('materia', $request->subject);
+            $succes = true;
+
+
+        }
+
+
+       /* $hasAdded = false;
+
+        foreach(array_keys($request->query()) as $pathField){
+
+            $path = $path.$pathField;
+
+            if($hasAdded){
+                $path = $path.'&&';
+            }
+
+            $hasAdded = true;
+
+        }*/
+
+        if(!$succes){
 
             return response()->json([
                 'message' => 'La ricerca non è andata a buon fine'
             ], 403);
 
         }
-
-        $results = Page::all();
-        $path = '/api/pages/search?';
-
-        if($request->exists('subject')){
-
-            $results = $results->where('pages.materia', '=', $request->subject);
-
-        }
-
-        if($request->exists('user')){
-
-            $results = $results->where('pages.creata_da', '=', $request->user);
-        }
-
-            return array_keys($request->query());
-
-
-
-        $results->withPath('/api/pages/search?user='.$request->user);
         return PageResource::collection($results);
 
 
@@ -136,25 +152,55 @@ class PageController extends Controller
     public function advancedFilter(Request $request)
     {
 
-        if($request->exists('subject') && $request->exists('user')){
-            $results = Page::where('pages.materia', '=', $request->subject)
-                ->where('pages.materia', '=', $request->subject);
-        }
+        $succes = false;
+        $results = Page::all();
+        //$path = '/api/pages/search?';
 
-        if($request->exists('subject') && !$request->exists('user')){
+        if($request->exists('user')){
 
-            $results = Page::where('pages.materia', '=', $request->subject);
-
-         }
-
-        if($request->exists('user') && !$request->exists('subject')){
-
-            $results = Page::where('pages.creata_da', '=', $request->user);
+            $results->where('creata_da', $request->user);
+            $succes = true;
 
         }
 
 
+        if($request->exists('subject')){
 
+            $results->where('materia', $request->subject);
+            $succes = true;
+
+        }
+
+        if(!$succes){
+
+            return response()->json([
+                'message' => 'La ricerca non è andata a buon fine'
+            ], 403);
+
+        }
+
+
+
+        $pagineFiltrate = PageResource::collection($results);;
+
+        foreach ($pagineFiltrate as $page){
+
+            return $page->contenuto;
+
+            foreach ($content->contenuto as $content){
+
+                if($request->exists('course')){
+                    if($content->corso == $request->course){
+                        $pagineFiltrate->where('id', $content->pagina);
+                }
+
+            }
+
+          }
+
+        }
+
+        return $pagineFiltrate;
     }
 
 //ORDINARISULTATI
