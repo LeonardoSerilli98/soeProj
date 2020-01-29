@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\User as UserResource;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -73,7 +75,9 @@ class UserController extends Controller
 //VISUALIZZA GRADUATORIA BCS
     public function bestCollaborative()
     {
-        return 'best collaborative students';
+
+        $bcs = User::orderBy('users.upvote_ricevuti', 'DESC')->paginate(30);;
+        return $bcs;
     }
 
 //BANNA

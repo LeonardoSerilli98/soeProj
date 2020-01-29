@@ -40,7 +40,7 @@ Route::group([
         Route::put('/pages/{idPagina}/contents/vota/{id}','ContentsController@vota');
         //YOU MUST BE ADMIN//
         Route::prefix('admin')->group(function () {
-            Route::post('/universities','UniversitiesController@store');
+            Route::post('/univttp://127.0.0.1:8000/api/ersities','UniversitiesController@store');
             Route::post('/universities/courses','UniversitiesController@addCourse');
 
             Route::post('/moderators','ModeratorsController@store');

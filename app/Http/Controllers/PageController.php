@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Content;
 use App\Http\Resources\Content as ContentResource;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -79,7 +80,7 @@ class PageController extends Controller
         //
     }
 
-//PAGINE AQUISTATE
+//PAGINE CON AQUISTI EFFETTUATI
     public function bought($id)
     {
         return 'pagine comprate';
@@ -99,6 +100,7 @@ class PageController extends Controller
 
     public function search(Request $request)
     {
+        //ricerca tramite utente e/o materia
 
         $succes = false;
         $results = Page::all();
@@ -151,7 +153,7 @@ class PageController extends Controller
 
     public function advancedFilter(Request $request)
     {
-
+    //effettua una ricerca normale tramite utente e/o materia e procede a filtrare i risultati di quest'ultima
         $succes = false;
         $results = Page::all();
         //$path = '/api/pages/search?';
@@ -162,7 +164,6 @@ class PageController extends Controller
             $succes = true;
 
         }
-
 
         if($request->exists('subject')){
 
@@ -179,24 +180,43 @@ class PageController extends Controller
 
         }
 
+        $pagineFiltrate = $results;
 
-
-        $pagineFiltrate = PageResource::collection($results);;
+        //tra le pagine trovate con una normale ricerca scarta tutte quelle che non contengono appunti con gli attributi specificati
 
         foreach ($pagineFiltrate as $page){
 
-            return $page->contenuto;
+           $contents = Content::where('contents.pagina', '=', $page->id)->get();
 
-            foreach ($content->contenuto as $content){
+            foreach ($contents as $content){
 
                 if($request->exists('course')){
-                    if($content->corso == $request->course){
-                        $pagineFiltrate->where('id', $content->pagina);
+                    if($content->corso_laurea == $request->course){
+                        $pagineFiltrate = $pagineFiltrate->where('id', $content->pagina);
+                     }
+                }
+
+                if($request->exists('language')){
+                    if($content->lingua == $request->language){
+                        $pagineFiltrate = $pagineFiltrate->where('id', $content->pagina);
+                    }
+                }
+
+                if($request->exists('fileType')){
+                    if($content->fileType == $request->fileType){
+                        $pagineFiltrate = $pagineFiltrate->where('id', $content->pagina);
+                    }
+                }
+
+                if($request->exists('category')){
+                    if($content->categoria == $request->category){
+
+                        $pagineFiltrate = $pagineFiltrate->where('id', $request->category);
+
+                    }
                 }
 
             }
-
-          }
 
         }
 
