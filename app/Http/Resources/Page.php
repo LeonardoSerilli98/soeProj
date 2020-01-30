@@ -17,13 +17,12 @@ class Page extends JsonResource
      */
     public function toArray($request)
     {
-        $contents = Content::where('contents.pagina', '=', $this->id)->get();
         return [
             'id' => $this->id,
             'creata_da' => $this->creata_da,
             'materia' => $this->materia,
             'nome_pagina' => $this->nome_pagina,
-            'contenuto' => $contents,
+
         ];
     }
 }
