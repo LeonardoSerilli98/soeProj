@@ -4,6 +4,36 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ 
+ .searchTerm {
+    width: 600px;
+    border: 3px solid rgb(175, 88, 226);
+    border-right: none;
+    padding: 18px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+    margin-left: 30px;
+  }
+  
+ .search {
+    width: 70%;
+    position: relative;
+    display: flex;
+    margin-left: 5px;
+  }
+    
+ .searchButton {
+    width: 40px;
+    height: 42px;
+    border: 1px solid rgb(175, 88, 226);
+    background: rgb(175, 88, 226);
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
 
 :root {
     --blue: #007bff;
@@ -346,6 +376,7 @@ progress {
 [type=search] {
     outline-offset: -2px;
     -webkit-appearance: none
+ 
 }
 
 [type=search]::-webkit-search-cancel-button,
