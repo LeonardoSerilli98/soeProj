@@ -76,7 +76,7 @@ class UserController extends Controller
     public function bestCollaborative()
     {
 
-        $bcs = User::orderBy('users.upvote_ricevuti', 'DESC')->paginate(30);;
+        $bcs = User::orderBy('users.upvote_ricevuti', 'DESC')->paginate(1);;
         return $bcs;
     }
 

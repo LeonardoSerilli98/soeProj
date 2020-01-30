@@ -108,7 +108,7 @@ class PageController extends Controller
 
         if($request->exists('user')){
 
-            $results->where('creata_da', $request->user);
+            $results = $results->where('creata_da', $request->user);
             $succes = true;
 
         }
@@ -116,7 +116,7 @@ class PageController extends Controller
 
         if($request->exists('subject')){
 
-            $results->where('materia', $request->subject);
+            $results = $results->where('materia', $request->subject);
             $succes = true;
 
 
@@ -160,14 +160,14 @@ class PageController extends Controller
 
         if($request->exists('user')){
 
-            $results->where('creata_da', $request->user);
+            $results = $results->where('creata_da', $request->user);
             $succes = true;
 
         }
 
         if($request->exists('subject')){
 
-            $results->where('materia', $request->subject);
+            $results = $results->where('materia', $request->subject);
             $succes = true;
 
         }
@@ -181,37 +181,39 @@ class PageController extends Controller
         }
 
         $pagineFiltrate = $results;
+        $tmp = '';
 
         //tra le pagine trovate con una normale ricerca scarta tutte quelle che non contengono appunti con gli attributi specificati
 
         foreach ($pagineFiltrate as $page){
 
-           $contents = Content::where('contents.pagina', '=', $page->id)->get();
+
+            $contents = Content::where('contents.pagina', '=', $page->id)->get();
 
             foreach ($contents as $content){
 
                 if($request->exists('course')){
                     if($content->corso_laurea == $request->course){
-                        $pagineFiltrate = $pagineFiltrate->where('id', $content->pagina);
+                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $content->pagina);
                      }
                 }
 
                 if($request->exists('language')){
                     if($content->lingua == $request->language){
-                        $pagineFiltrate = $pagineFiltrate->where('id', $content->pagina);
+                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $content->pagina);
                     }
                 }
 
                 if($request->exists('fileType')){
                     if($content->fileType == $request->fileType){
-                        $pagineFiltrate = $pagineFiltrate->where('id', $content->pagina);
+                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $content->pagina);
                     }
                 }
 
                 if($request->exists('category')){
                     if($content->categoria == $request->category){
 
-                        $pagineFiltrate = $pagineFiltrate->where('id', $request->category);
+                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $request->category);
 
                     }
                 }
@@ -220,7 +222,7 @@ class PageController extends Controller
 
         }
 
-        return $pagineFiltrate;
+        return json_decode($tmp);
     }
 
 //ORDINARISULTATI
