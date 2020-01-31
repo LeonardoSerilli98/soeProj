@@ -13,8 +13,5 @@ class FrontEndController extends Controller
     {
         return view('auth');
     }
-    public function getMyPages()
-    {
-        return view('mypages');
-    }
+
 }

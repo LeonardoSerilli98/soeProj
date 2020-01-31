@@ -188,9 +188,11 @@ class PageController extends Controller
         foreach ($pagineFiltrate as $page){
 
 
-            $contents = Content::where('contents.pagina', '=', $page->id)->get();
+             $contents = Content::where('contents.pagina', '=', $page->id)->get();
 
             foreach ($contents as $content){
+
+
 
                 if($request->exists('course')){
                     if($content->corso_laurea == $request->course){
@@ -222,7 +224,7 @@ class PageController extends Controller
 
         }
 
-        return json_decode($tmp);
+        return $tmp;
     }
 
 //ORDINARISULTATI

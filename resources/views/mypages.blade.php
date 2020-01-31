@@ -1,19 +1,34 @@
 @extends('layout')
 
 @section('content')
-  <!-- ================ End Header Area ================= -->
-  <!-- ================ start banner Area ================= -->
-  <section class="home-banner-area">
 
-    <div class="container">
-        <div class="row justify-content-center fullscreen align-items-center">
-        <div class="pagine_personali">
-            @foreach($pages as $page)
-                <a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}}</a>
-            @endforeach
+    <h1>Le mie pagine</h1>
+
+        @foreach($pages as $page)
+            <a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}} <br> </a>
+        @endforeach
+
+    <form method="POST" action="/page">
+        @csrf
+
+        <div><label>nome pagina: </label><input type="text" name="nome"></div>
+
+        <div class="select">
+
+            <label>materia</label>
+
+            <select name="materia">
+
+
+                @foreach($materie as $materia)
+                    <option value="{{ $materia->id }}"> {{ $materia->materia }}</option>
+                @endforeach
+
+            </select>
+
         </div>
-    </div>
-  </section>
-  <!-- ================ End banner Area ================= -->
+
+        <button type="submit">Crea pagina</button>
+    </form>
 
 @endsection
