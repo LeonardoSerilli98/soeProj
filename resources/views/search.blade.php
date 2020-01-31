@@ -52,8 +52,9 @@
         </select>
         <select name="fileType">
             <option value="0">tipo di file:</option>
-            <option value="audio/mp3"> mp3 </option>
+            <option value="audio/mp3"> audio </option>
             <option value="application/pdf"> pdf </option>
+            <option value="img/jpeg"> immagine </option>
 
         </select>
 
