@@ -77,4 +77,17 @@ class WebContentController extends Controller
         $content = Content::where('contents.id', '=', $id)->get();
         return view('singleContent')->with('content', $content)->with('bought', $hasBought);
     }
+
+    public function buy($idAppunto){
+        if(Auth::user()->num_token >= 3){
+            $content = Content::where('contents.id', '=', $idAppunto)->get();
+            $acquisto = new Bought();
+            $acquisto->utente = Auth::id();
+            $acquisto->appunto = $idAppunto;
+            $acquisto->save();
+            Auth::user()->update(['num_token' => (Auth::user()-> num_token - 3)]);
+
+            return view('singleContent')->with('content', $content)->with('bought', true);
+        }
+    }
 }

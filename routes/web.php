@@ -20,6 +20,8 @@ Route::get('/search/advancedFilter', 'WebPageController@advancedFilter');
 Route::get('/mypages', 'WebPageController@getMyPages')->name('mypages');
 Route::get('/mypages/{id}', 'WebPageController@getMyPage');
 
+Route::post('/content/{id}', 'WebContentController@buy');
+
 Route::resource('/page','WebPageController')->except(['create', 'edit', 'update', 'destroy']);
 
 Route::resource('/content','WebContentController')->except(['create', 'edit', 'update', 'destroy']);

@@ -14,6 +14,10 @@
                 <embed src="{{asset($con->path_contenuto)}}" type="{{$con->tipo_file}}" />
             @else
                 <embed src="{{asset($con->path_contenuto).'#toolbar=0'}}" type="{{$con->tipo_file}}" />
+                <form method="POST" action="/content/{{ $con->id }}">
+                    @csrf
+                    <button type="submit">Acquista</button>
+                </form>
             @endif
 
         @else
@@ -22,6 +26,10 @@
                 <embed src="{{asset($con->path_contenuto)}}" type="{{$con->tipo_file}}" height="380px" width="500px"/>
             @else
                 <embed src="{{asset($con->path_contenuto).'#toolbar=0'}}" type="{{$con->tipo_file}}" height="380px" width="500px"/>
+
+                <form method="POST" action="/content/{{ $con->id }}">
+                    <button type="submit">Acquista</button>
+                </form>
             @endif
 
 
