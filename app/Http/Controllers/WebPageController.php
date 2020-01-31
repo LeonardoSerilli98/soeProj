@@ -50,8 +50,10 @@ class WebPageController extends Controller
         $myContent = Content::where('contents.pagina', '=', $id)
             ->where('caricato_da', '=', Auth::id())
             ->get();
+        $categorie = Category::all();
+        $corsi = Course::all();
 
-        return view('mypage')->with('contents', $myContent);
+        return view('mypage')->with('contents', $myContent)->with('idPagina', $id)->with('categorie', $categorie)->with('corsi', $corsi);
     }
 
     public function search(Request $request)
