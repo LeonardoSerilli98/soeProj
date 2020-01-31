@@ -1,8 +1,7 @@
 @extends('layout')
 
 @section('content')
-  <!-- ================ End Header Area ================= -->
-  <!-- ================ start banner Area ================= -->
+  <!-- form per il login -->
   <section class="home-banner-area">
     <div class="container">
       <div class="row justify-content-center fullscreen align-items-center">
@@ -67,7 +66,7 @@
                     </div>
                 
                 
-                
+    <!-- form per il logout -->
                     <div class="card">
                         <div class="card-header">{{ __('Register') }}</div>
 
@@ -155,7 +154,7 @@
         </div>
     </div>
   </section>
-  <!-- ================ End banner Area ================= -->
+  
 
   
 

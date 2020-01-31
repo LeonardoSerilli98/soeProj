@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <!— la view mostra un singolo appunto con l'anteprima del suo contenuto-->
+    <!-- la view mostra un singolo appunto con l'anteprima del suo contenuto-->
 
     @foreach($content as $con)
         <h1>Nome Appunto: {{$con->nome_contenuto}}</h1>

@@ -16,9 +16,10 @@
 
 <header>
 <div>
-  
+
 <ul class="ul">
     <li>
+    <!-- form per creare una nuova pagina -->
         @if(Auth::check())
             <a href="{{ route('logout') }}"
                   onclick="event.preventDefault();
@@ -30,13 +31,13 @@
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
 
           @else
-
+  <!-- guest user -->
           <a href="{{route('auth')}}" > Login / SingUp </a>
           @endif
     </li>
     
 
-            
+  <!-- form per la ricerca di default (tramite utente o materia)-->       
                 <form method="GET" action="/search">
                     @csrf
                   <li><a>

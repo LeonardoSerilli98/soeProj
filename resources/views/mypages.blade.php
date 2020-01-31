@@ -2,17 +2,12 @@
 
 @section('content')
 
+<!-- informazioni riguardanti l'utente -->
+
     <div class="profilo">
         <h4> hai caricato <h4>
     </div>
-
-    <h1>Le mie pagine</h1>
-        
-        @foreach($pages as $page)
-        <ul class ="appunto">
-            <a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}} <br> </a>
-        </ul>
-        @endforeach
+<!-- form per creare una nuova pagina -->
     <div class="crea">
         <h3>Crea una nuova pagina</h3>
 
@@ -38,6 +33,17 @@
 
         <button type="submit">Crea pagina</button>
     </form>
-</div>
+    </div>
+<!-- pagine create dall'utente -->
+    <h1>Le mie pagine</h1>
+        
+        @foreach($pages as $page)
+        <ul class ="appunto">
+            <a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}} <br> </a>
+        </ul>
+        @endforeach
+    
+
+    
 
 @endsection

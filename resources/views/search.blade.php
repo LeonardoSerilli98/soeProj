@@ -6,7 +6,7 @@
     <h1>Filtro avanzato</h1>
     <h3>filtra tra le pagine dell'utente e/o materia che hai selezionato</h3>
     @if($hasResults != 0)
-
+<!-- form per effettuare un filtraggio avanzato sulla ricerca preliminare ( effettuata su un utente o una materia) -->
     <form method="GET" action="/search/advancedFilter">
         <div class ="filtro">
                 <input name="user" type="hidden" value="{{$data->user}}">
@@ -48,7 +48,7 @@
         </div>
 
         <h1>I tuoi risultati </h1>
-
+    <!-- Risultati della ricerca avanzata -->
         <div class="Risultati">
             @foreach($risultati as $page)
                 <div class="appunto">
@@ -58,6 +58,7 @@
 
         </div>
     @else
+    <!-- se i campi selezionati nella ricerca avanzata non matchano con nessun appunto nel database -->
         <h5>il filtraggio non ha prodotto risultati</h5>
      @endif
     
