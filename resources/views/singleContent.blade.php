@@ -16,7 +16,9 @@
             @else
                 <embed src="{{asset($con->path_contenuto).'#toolbar=0'}}" type="{{$con->tipo_file}}" />
                 @if(Auth::check())
-                    <form method="POST" action="/content/{{ $con->id }}">
+                    <form method="post" action="{{ route('buy') }}">
+                        @csrf
+                        <input type="hidden" value="{{ $con->id }}" name="idAppunto">
                         <button type="submit">Acquista</button>
                     </form>
                 @endif
@@ -29,7 +31,9 @@
             @else
                 <embed src="{{asset($con->path_contenuto).'#toolbar=0'}}" type="{{$con->tipo_file}}" height="380px" width="500px"/>
                 @if(Auth::check())
-                    <form method="POST" action="/content/{{ $con->id }}">
+                    <form method="post" action="{{ route('buy') }}">
+                        @csrf
+                        <input type="hidden" value="{{ $con->id }}" name="idAppunto">
                         <button type="submit">Acquista</button>
                     </form>
                 @endif
