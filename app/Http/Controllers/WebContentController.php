@@ -52,8 +52,9 @@ class WebContentController extends Controller
             }
 
 
-
+            Auth::user()->update(['num_caricamenti' => (Auth::user()-> num_caricamenti + 1)]);
             return view('singleContent')->with('content', $content);
+
         }else{
             return 'errore nel caricamento del file';
         }

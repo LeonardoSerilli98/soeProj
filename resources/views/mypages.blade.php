@@ -5,7 +5,7 @@
 <!-- informazioni riguardanti l'utente -->
 
     <div class="profilo">
-        <h4> hai caricato <h4>
+        <h4> hai caricato {{ $num_caricamenti }} appunti<h4>
     </div>
 <!-- form per creare una nuova pagina -->
     <div class="crea">

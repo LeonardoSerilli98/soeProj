@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
+
+
+
 use App\Page;
 use App\Content;
 use App\Subject;
@@ -30,7 +34,9 @@ class WebPageController extends Controller
     public function show($id)
     {
         $contenuts = Content::where('contents.pagina', '=', $id)->get();
-        return view('page')->with('contents', $contenuts);
+        $nome_pagina = Page::find($id);
+        return view('page')->with('contents', $contenuts)->with('nome_pagina', $nome_pagina);
+
     }
 
 //tramite link nella home mostra i link per accedere alle proprie pagine
@@ -58,7 +64,6 @@ class WebPageController extends Controller
         return view('mypage')->with('contents', $myContent)->with('idPagina', $id)->with('categorie', $categorie)->with('corsi', $corsi)->with('nome_pagina', $nome_pagina);
     }
 
-
     public function search(Request $request)
     {
 
@@ -73,9 +78,9 @@ class WebPageController extends Controller
             $userId = User::select("users.id")
                 ->where('users.name', '=', $request->user)->get();
 
-            if($userId->isEmpty()){
-                return 'la ricerca non è andata a buon fine';
-            }
+           if($userId->isEmpty()){
+               return 'la ricerca non è andata a buon fine';
+           }
 
             $userId = $userId[0]->id;
 
@@ -146,25 +151,26 @@ class WebPageController extends Controller
         $IdArray = [];
         $count = 0;
 
-        foreach ($results as $res){
+       foreach ($results as $res){
 
-            $idArray[$count] = $res->id;
-            $count++;
-        }
-
-
+           $idArray[$count] = $res->id;
+           $count++;
+       }
 
 
-        if(($request->language == $request->course) && ($request->category == $request->fileType)){
-            $hasResults = 0;
-            return view('search')
-                ->with('hasResults', $hasResults)
-                ->with('categorie', $categorie)
-                ->with('corsi', $corsi)
-                ->with('data', $request);
-        }
 
-        //le operazioni sulla stringa tmp sono eseguite al fine di farla matchare con il tipo di stringa richiesto da dal metodo json_decode;
+
+         if(($request->language == $request->course) && ($request->category == $request->fileType)){
+             $hasResults = 0;
+             return view('search')
+                 ->with('hasResults', $hasResults)
+                 ->with('categorie', $categorie)
+                 ->with('corsi', $corsi)
+                 ->with('data', $request);
+         }
+
+
+//le operazioni sulla stringa tmp sono eseguite al fine di farla matchare con il tipo di stringa richiesto da dal metodo json_decode;
         //se avessimo implementato la ricerca avanzata ramite una singola query contentente un join tra appunti e pagine avremmo impiegato molto piu tempo che facendo nel seguente modo
         //ovvero vedendo al risultato del filtraggio con un intersezione tra i risultati dei filtraggi tra i singoli campi e scartando tramite confronti sempre di più riducendo esponenzialmente la complessita di where in where.
 
@@ -173,7 +179,7 @@ class WebPageController extends Controller
 
             return $q->where('corso_laurea', '=', $request->course);
 
-        })
+             })
             ->when($request->language != "0", function ($q) use ($request) {
 
                 return $q->where('lingua', '=', $request->language);
@@ -195,10 +201,14 @@ class WebPageController extends Controller
 
 
 
-        $contenuti = $contenuti->get();
-        $contenuti = json_decode($contenuti);
-        $contenuti = array_values(array_unique($contenuti, SORT_REGULAR));
-//tra le pagine trovate con una normale ricerca scarta tutte quelle che non contengono appunti con gli attributi specificati
+         $contenuti = $contenuti->get();
+         $contenuti = json_decode($contenuti);
+         $contenuti = array_values(array_unique($contenuti, SORT_REGULAR));
+
+
+
+
+        //tra le pagine trovate con una normale ricerca scarta tutte quelle che non contengono appunti con gli attributi specificati
 
 
         return view('search')
