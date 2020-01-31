@@ -40,6 +40,8 @@
                     <option value="0">tipo di file:</option>
                     <option value="audio/mp3"> mp3 </option>
                     <option value="application/pdf"> pdf </option>
+                    <option value="image/jpeg"> jpeg </option>
+                    <option value="image/png"> png </option>
 
                 </select>
 
