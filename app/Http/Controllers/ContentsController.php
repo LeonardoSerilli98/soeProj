@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Content;
 use App\Http\Resources\Content as ContentResource;
+use App\Http\Controllers\Auth;
 
 class contentsController extends Controller
 {
@@ -32,13 +33,14 @@ class contentsController extends Controller
     {
         $newItem = new Content();
         $newItem->pagina = $request->idPagina;
-        $newItem->caricato_da = 2; //Auth::id();
+        $newItem->caricato_da = Auth::id();
         $newItem->corso_laurea = $request->corso_laurea;
         $newItem->lingua = $request->lingua;
         $newItem->categoria= $request->categoria;
         $newItem->tipo_file= $request->tipo_file;
         $newItem->argomento= $request->argomento;
-        $newItem->path_contenuto = 'venezia'; //inserisci generazione automatica path
+        $newItem->nome_contenuto= $request->nome_contenuto;
+        $newItem->path_contenuto = ''; //inserisci generazione automatica path
         $newItem->save();
 
         return new ContentResource($newItem);
