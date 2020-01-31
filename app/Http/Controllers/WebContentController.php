@@ -17,8 +17,8 @@ class WebContentController extends Controller
             $extension = $request->file('appunto')->extension();
             if($extension == 'jpeg'){
                 $extension = 'image/jpeg';
-            }elseif ($extension == 'mp3'){
-                $extension = 'audio/mpeg';
+            }elseif (($extension == 'mp3')||($extension == 'mpga')){
+                $extension = 'audio/mp3';
             }elseif ($extension == 'pdf'){
                 $extension = 'application/pdf';
             }
