@@ -98,134 +98,129 @@ class PageController extends Controller
 
 //RICERCA
 
-    public function search(Request $request)
-    {
-        //ricerca tramite utente e/o materia
+public function search(Request $request)
+{
+    //ricerca tramite utente e/o materia
 
-        $succes = false;
-        $results = Page::all();
-        //$path = '/api/pages/search?';
+    $succes = false;
+    $results = Page::all();
+    //$path = '/api/pages/search?';
 
-        if($request->exists('user')){
+    if (!$request->user == 0) {
 
-            $results = $results->where('creata_da', $request->user);
-            $succes = true;
-
-        }
-
-
-        if($request->exists('subject')){
-
-            $results = $results->where('materia', $request->subject);
-            $succes = true;
+        $results = $results->where('creata_da', '=', $request->user);
+        $succes = true;
+    }
 
 
-        }
+    if (!$request->subject == 0) {
 
-
-       /* $hasAdded = false;
-
-        foreach(array_keys($request->query()) as $pathField){
-
-            $path = $path.$pathField;
-
-            if($hasAdded){
-                $path = $path.'&&';
-            }
-
-            $hasAdded = true;
-
-        }*/
-
-        if(!$succes){
-
-            return response()->json([
-                'message' => 'La ricerca non è andata a buon fine'
-            ], 403);
-
-        }
-        return PageResource::collection($results);
-
+        $results = $results->where('materia', $request->subject);
+        $succes = true;
 
 
     }
+
+    if(!$succes){
+
+
+        return response()->json([
+            'message' => 'La ricerca non è andata a buon fine'
+        ], 403);
+
+    }
+
+    return PageResource::collection($results);
+
+
+
+}
 //FILRAGGIO AVANZATO
 
-    public function advancedFilter(Request $request)
-    {
-    //effettua una ricerca normale tramite utente e/o materia e procede a filtrare i risultati di quest'ultima
-        $succes = false;
-        $results = Page::all();
-        //$path = '/api/pages/search?';
 
-        if($request->exists('user')){
+public function advancedFilter(Request $request)
+{
 
-            $results = $results->where('creata_da', $request->user);
-            $succes = true;
+    $results = Page::all();
 
-        }
+    //variabili necessare alla form di filtraggio avanzato
 
-        if($request->exists('subject')){
+    $categorie = Category::all();
+    $corsi = Course::all();
+    $hasResults = 1;
 
-            $results = $results->where('materia', $request->subject);
-            $succes = true;
+    if (!$request->user == 0) {
 
-        }
+        $results = $results->where('creata_da', '=', $request->user);
 
-        if(!$succes){
-
-            return response()->json([
-                'message' => 'La ricerca non è andata a buon fine'
-            ], 403);
-
-        }
-
-        $pagineFiltrate = $results;
-        $tmp = '';
-
-        //tra le pagine trovate con una normale ricerca scarta tutte quelle che non contengono appunti con gli attributi specificati
-
-        foreach ($pagineFiltrate as $page){
-
-
-             $contents = Content::where('contents.pagina', '=', $page->id)->get();
-
-            foreach ($contents as $content){
-
-
-
-                if($request->exists('course')){
-                    if($content->corso_laurea == $request->course){
-                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $content->pagina);
-                     }
-                }
-
-                if($request->exists('language')){
-                    if($content->lingua == $request->language){
-                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $content->pagina);
-                    }
-                }
-
-                if($request->exists('fileType')){
-                    if($content->fileType == $request->fileType){
-                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $content->pagina);
-                    }
-                }
-
-                if($request->exists('category')){
-                    if($content->categoria == $request->category){
-
-                        $tmp = $tmp.(String)$pagineFiltrate->where('id', $request->category);
-
-                    }
-                }
-
-            }
-
-        }
-
-        return $tmp;
     }
+
+
+    if (!$request->subject == 0) {
+
+        $results = $results->where('materia', $request->subject);
+
+    }
+
+    $IdArray = [];
+    $count = 0;
+
+    foreach ($results as $res){
+
+        $idArray[$count] = $res->id;
+        $count++;
+    }
+
+
+
+
+
+    if(($request->language == $request->course) && ($request->category == $request->fileType)){
+        $hasResults = 0;
+        return 'il filtraggio non ha prodotto risultati';
+    }
+
+    //le operazioni sulla stringa tmp sono eseguite al fine di farla matchare con il tipo di stringa richiesto da dal metodo json_decode;
+    //se avessimo implementato la ricerca avanzata ramite una singola query contentente un join tra appunti e pagine avremmo impiegato molto piu tempo che facendo nel seguente modo
+    //ovvero vedendo al risultato del filtraggio con un intersezione tra i risultati dei filtraggi tra i singoli campi e scartando tramite confronti sempre di più riducendo esponenzialmente la complessita di where in where.
+
+
+    $contenuti = Content::when($request->course != 0, function ($q) use ($request) {
+
+        return $q->where('corso_laurea', '=', $request->course);
+
+    })
+        ->when($request->language != "", function ($q) use ($request) {
+
+            return $q->where('lingua', '=', $request->language);
+
+        })
+        ->when($request->fileType != "", function ($q) use ($request) {
+
+            return $q->where('tipo_file', '=', $request->fileType);
+
+        })
+        ->when($request->category != 0, function ($q) use ($request) {
+
+            return $q->where('categoria', '=', $request->category);
+
+        })
+        ->join('pages', 'contents.pagina', '=', 'pages.id')
+        ->whereIn('pages.id', $idArray)
+        ->select('contents.pagina as id', 'pages.creata_da', 'pages.materia', 'pages.nome_pagina');
+
+
+
+    $contenuti = $contenuti->get();
+    $contenuti = json_decode($contenuti);
+
+    //qui eliminiamo i possibili duplicati nel json
+    $contenuti = array_values(array_unique($contenuti, SORT_REGULAR));
+
+    return $contenuti;
+
+
+}
 
 //ORDINARISULTATI
     public function sort(Request $request)
