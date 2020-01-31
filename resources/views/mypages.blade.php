@@ -5,13 +5,17 @@
     <h1>Le mie pagine</h1>
 
         @foreach($pages as $page)
-            <a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}} <br> </a>
+        <ul>
+            <h4><a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}} <br> </a></h4>
+    </ul>
         @endforeach
+    <div class="crea">
+        <h3>Crea una nuova pagina</h3>
 
     <form method="POST" action="/page">
         @csrf
 
-        <div><label>nome pagina: </label><input type="text" name="nome"></div>
+        <div><label>nome pagina: </label><input type="text" name="nome" ></div>
 
         <div class="select">
 
@@ -30,5 +34,6 @@
 
         <button type="submit">Crea pagina</button>
     </form>
+</div>
 
 @endsection

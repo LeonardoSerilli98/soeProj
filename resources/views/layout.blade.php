@@ -6,13 +6,19 @@
   <meta charset="UTF-8" />
   <!-- Site Title -->
   <title>Sharing Appunti</title>
+  <link rel="stylesheet" href="{{asset('css\nuovo.css')}}" />
+  
+</head>
 
 </head>
 
 <body>
 
 <header>
-
+<div>
+  
+<ul class="ul">
+    <li>
         @if(Auth::check())
             <a href="{{ route('logout') }}"
                   onclick="event.preventDefault();
@@ -27,11 +33,13 @@
 
           <a href="{{route('auth')}}" > Login / SingUp </a>
           @endif
+    </li>
+    
 
-            <div>
+            
                 <form method="GET" action="/search">
                     @csrf
-
+                  <li><a>
                     Ricerca per materia:
 
                     <select name="subject">
@@ -40,26 +48,31 @@
                             <option value="{{$materia->id}}"> {{$materia->materia}}</option>
                             @endforeach
                     </select>
-
+                  </a></li>
+                  <li><a>
                     oppure per utente
 
                     <input name="user" type="text" class="searchTerm" placeholder="inserisci nome utente">
 
                     <button type="submit" class="searchButton"> search </button>
-
+                    </a> </li>
                 </form>
+              
 
-            </div>
+            
 
             <li><a href="{{route('master')}}">Home</a></li>
 
             @if(Auth::check())
 
-            <li><a href="{{route('mypages')}}">MyPages</a></li>
+            <li> <a href="{{route('mypages')}}">HyPages</a></li>
 
             @endif
+            
+  </ul>
 
     </header>
+</div>
 
   <!-- ================ End Header Area ================= -->
 
