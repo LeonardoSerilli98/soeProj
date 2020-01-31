@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Content;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -40,6 +41,15 @@ class WebContentController extends Controller
             $content->update(['path_contenuto'=> 'storage/content/'.$content->id]);
 
             $content = Content::where('contents.id', '=', $content->id)->get();
+
+            if(Auth::user()->per_token == 1 ){
+                Auth::user()->update(['per_token'=> 5]);
+                Auth::user()->update(['num_token' => (Auth::user()->num_token + 3)]);
+            }else{
+                Auth::user()->update(['per_token'=> (Auth::user()->per_token - 1)]);
+            }
+
+
 
             return view('singleContent')->with('content', $content);
         }else{
