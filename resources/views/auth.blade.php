@@ -44,7 +44,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-md-6 offset-md-4">
-                                    
+
                                     </div>
                                 </div>
 
@@ -64,9 +64,15 @@
                             </form>
                         </div>
                     </div>
+<<<<<<< HEAD
                 
                 
     <!-- form per il logout -->
+=======
+
+
+
+>>>>>>> 57e749c442d71b5541bf88cebbae08c782588a5d
                     <div class="card">
                         <div class="card-header">{{ __('Register') }}</div>
 
@@ -127,17 +133,25 @@
                                     <label for="corsoDiLaurea" class="col-md-4 col-form-label text-md-right">{{ __('Corso di laurea') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="corsoDiLaurea" type="number" class="form-control" name="corsoDiLaurea"placeholder="corso" >
+                                        <select id="corsoDiLaurea" class="form-control" name="corsoDiLaurea"placeholder="corso" >
+                                            @foreach( $corsi as $corso)
+                                                <option value="{{ $corso->id }}">{{ $corso->corso_laurea }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="universita" class="col-md-4 col-form-label text-md-right">{{ __('Universita') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="universita" type="number" class="form-control" name="universita"placeholder="universita" >
+                                        <select id="universita" class="form-control" name="universita"placeholder="universita" >
+                                            @foreach( $universita as $uni)
+                                                <option value="{{ $uni->id }}">{{ $uni->universita }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
@@ -156,8 +170,8 @@
   </section>
   
 
-  
 
-  
+
+
 
   @endsection

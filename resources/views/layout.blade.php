@@ -7,10 +7,10 @@
   <!-- Site Title -->
   <title>Sharing Appunti</title>
   <link rel="stylesheet" href="{{asset('css\nuovo.css')}}" />
-  
-</head>
 
 </head>
+
+
 
 <body>
 
@@ -29,15 +29,19 @@
              </a>
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
-
+                <h3>Hai {{ $num_token }} token</h3>
           @else
   <!-- guest user -->
           <a href="{{route('auth')}}" > Login / SingUp </a>
           @endif
     </li>
-    
 
+<<<<<<< HEAD
   <!-- form per la ricerca di default (tramite utente o materia)-->       
+=======
+
+
+>>>>>>> 57e749c442d71b5541bf88cebbae08c782588a5d
                 <form method="GET" action="/search">
                     @csrf
                   <li><a>
@@ -58,9 +62,9 @@
                     <button type="submit" class="searchButton"> search </button>
                     </a> </li>
                 </form>
-              
 
-            
+
+
 
             <li><a href="{{route('master')}}">Home</a></li>
 
@@ -69,7 +73,7 @@
             <li> <a href="{{route('mypages')}}">Profile</a></li>
 
             @endif
-            
+
   </ul>
 
     </header>
