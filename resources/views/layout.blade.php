@@ -7,19 +7,20 @@
   <!-- Site Title -->
   <title>Sharing Appunti</title>
   <link rel="stylesheet" href="{{asset('css\nuovo.css')}}" />
-  
-</head>
 
 </head>
+
+
 
 <body>
 
 <header>
 <div>
-  
+
 <ul class="ul">
     <li>
         @if(Auth::check())
+            <h3>{{ $num_token }}</h3>
             <a href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
@@ -34,9 +35,9 @@
           <a href="{{route('auth')}}" > Login / SingUp </a>
           @endif
     </li>
-    
 
-            
+
+
                 <form method="GET" action="/search">
                     @csrf
                   <li><a>
@@ -57,9 +58,9 @@
                     <button type="submit" class="searchButton"> search </button>
                     </a> </li>
                 </form>
-              
 
-            
+
+
 
             <li><a href="{{route('master')}}">Home</a></li>
 
@@ -68,7 +69,7 @@
             <li> <a href="{{route('mypages')}}">MyPages</a></li>
 
             @endif
-            
+
   </ul>
 
     </header>
