@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Content;
@@ -37,8 +36,6 @@ class WebContentController extends Controller
             $content->save();
 
             $request->file('appunto')->storeAs('content', $content->id, 'public');
-
-
 
             $content->update(['path_contenuto'=> 'storage/content/'.$content->id]);
 

@@ -53,7 +53,9 @@ class WebPageController extends Controller
         $categorie = Category::all();
         $corsi = Course::all();
 
-        return view('mypage')->with('contents', $myContent)->with('idPagina', $id)->with('categorie', $categorie)->with('corsi', $corsi);
+        $nome_pagina = Page::find($id)->nome_pagina;
+
+        return view('mypage')->with('contents', $myContent)->with('idPagina', $id)->with('categorie', $categorie)->with('corsi', $corsi)->with('nome_pagina', $nome_pagina);
     }
 
     public function search(Request $request)
