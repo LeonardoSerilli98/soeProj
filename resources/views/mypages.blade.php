@@ -2,6 +2,10 @@
 
 @section('content')
 
+    <div class="profilo">
+        <h4> hai caricato <h4>
+    </div>
+
     <h1>Le mie pagine</h1>
         
         @foreach($pages as $page)
