@@ -64,15 +64,9 @@
                             </form>
                         </div>
                     </div>
-<<<<<<< HEAD
-                
-                
-    <!-- form per il logout -->
-=======
 
 
 
->>>>>>> 57e749c442d71b5541bf88cebbae08c782588a5d
                     <div class="card">
                         <div class="card-header">{{ __('Register') }}</div>
 

@@ -36,12 +36,8 @@
           @endif
     </li>
 
-<<<<<<< HEAD
-  <!-- form per la ricerca di default (tramite utente o materia)-->       
-=======
 
 
->>>>>>> 57e749c442d71b5541bf88cebbae08c782588a5d
                 <form method="GET" action="/search">
                     @csrf
                   <li><a>
