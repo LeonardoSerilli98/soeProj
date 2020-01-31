@@ -69,6 +69,8 @@ class WebContentController extends Controller
             $bought = Bought::where('boughts.appunto', '=', $id)->where('boughts.utente', '=', Auth::id())->get();
             if(!($bought->isEmpty())){
                 $hasBought = true;
+            }elseif (Auth::id()==$id){
+                $hasBought = true;
             }
         }
 
