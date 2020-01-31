@@ -3,15 +3,24 @@
 @section('content')
 
     <h1>Risultati ricerca:</h1>
+    @if($hasResults != 0)
+        <div class="Risultati">
+            @foreach($risultati as $page)
+                <a href="/page/{{$page->id}}"> {{$page->nome_pagina}} <br> </a>
+            @endforeach
 
-    <div class="Risultati">
-        @foreach($risultati as $page)
-            <a href="/page/{{$page->id}}"> {{$page->nome_pagina}} <br> </a>
-        @endforeach
+        </div>
+    @else
 
-    </div>
 
+
+        <h5>il filtraggio non ha prodotto risultati</h5>
+
+
+    @endif
     <div><h4>Filtro Avanzato</h4></div>
+    <h6>filtra tra le pagine dell'utente e/o materia che hai selezionato</h6>
+
 
     <form method="GET" action="/search/advancedFilter">
 
@@ -19,13 +28,15 @@
         <input name="subject" type="hidden" value="{{$data->subject}}">
 
         <select name="language">
-            <option value="">lingua:</option>
+            <option value="0">lingua:</option>
 
             <option value="italiano">ita</option>
+
             <option value="inglese">eng</option>
+
         </select>
         <select name="course">
-                <option value="">corso:</option>
+            <option value="0">corso:</option>
             @foreach($corsi as $corso)
                 <option value="{{$corso->id}}"> {{$corso->corso_laurea}}</option>
             @endforeach
@@ -48,5 +59,7 @@
 
         <button type="submit">Filtra i risultati</button>
     </form>
+
+
 
 @endsection
