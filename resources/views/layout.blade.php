@@ -66,7 +66,7 @@
 
             @if(Auth::check())
 
-            <li> <a href="{{route('mypages')}}">MyPages</a></li>
+            <li> <a href="{{route('mypages')}}">Profile</a></li>
 
             @endif
 

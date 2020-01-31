@@ -1,8 +1,9 @@
 @extends('layout')
 
 @section('content')
-    <h1>I miei appunti nella pagina {{ $nome_pagina }}</h1>
-
+    <h1>La mia pagina di {{ $nome_pagina }}</h1>
+    <h3> Carica un nuovo appunto </h3>
+<ul class ="upload">
     <form method="POST" action="/content" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="pagina" value="{{ $idPagina }}">
@@ -24,7 +25,10 @@
         </select>
         <input type="submit">
     </form>
+</ul>
 
+    
+    <h3>Appunti caricati </h3>
     @foreach($contents as $content)
 
     <ul class = "appunto">

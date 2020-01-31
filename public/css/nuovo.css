@@ -1,6 +1,13 @@
 html {
     background-color: rgb(120, 164, 194);
 }
+h1 {
+  margin-left:30px;
+}
+h3{
+  margin-left:30px;
+  
+}
 .ul {
     list-style-type: none;
     margin: 0;
@@ -59,6 +66,7 @@ html {
       display:flex;
       flex-direction: row;
       justify-content: space-evenly;
+      margin-left: 30px;
 
 }
   .appunto{
@@ -72,6 +80,48 @@ html {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    margin-left: 30px;
+
+}
+  .profilo{
+    width: 400px;
+    height: 80px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 30px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 30px;
+
+}
+  .filtro{
+    width: 600px;
+    height: 60px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 30px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 30px;
+
+}
+.upload{
+  width: 1450px;
+  height: 60px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  
+  display:flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  
 
 }
   
