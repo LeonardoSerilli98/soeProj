@@ -13,7 +13,9 @@
 
         <embed src="{{asset($con->path_contenuto)}}" type="{{$con->tipo_file}}"/>
 
-        @else
+        @elseif(
+            Auth::check() && 
+        )
             <embed src="{{asset($con->path_contenuto).'#toolbar=0'}}" type="{{$con->tipo_file}}" height="380px" width="500px"/>
             @endif
         
