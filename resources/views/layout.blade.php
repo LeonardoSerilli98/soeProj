@@ -7,18 +7,19 @@
   <!-- Site Title -->
   <title>Sharing Appunti</title>
   <link rel="stylesheet" href="{{asset('css\nuovo.css')}}" />
-  
-</head>
 
 </head>
+
+
 
 <body>
 
 <header>
 <div>
-  
+
 <ul class="ul">
     <li>
+    <!-- form per creare una nuova pagina -->
         @if(Auth::check())
             <a href="{{ route('logout') }}"
                   onclick="event.preventDefault();
@@ -28,15 +29,15 @@
              </a>
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
-
+                <h3>Hai {{ $num_token }} token</h3>
           @else
-
+  <!-- guest user -->
           <a href="{{route('auth')}}" > Login / SingUp </a>
           @endif
     </li>
-    
 
-            
+
+
                 <form method="GET" action="/search">
                     @csrf
                   <li><a>
@@ -57,18 +58,18 @@
                     <button type="submit" class="searchButton"> search </button>
                     </a> </li>
                 </form>
-              
 
-            
+
+
 
             <li><a href="{{route('master')}}">Home</a></li>
 
             @if(Auth::check())
 
-            <li> <a href="{{route('mypages')}}">MyPages</a></li>
+            <li> <a href="{{route('mypages')}}">Profile</a></li>
 
             @endif
-            
+
   </ul>
 
     </header>
