@@ -1,5 +1,5 @@
 html {
-    background: url("/img/home-banner-bg.png");
+    background-color: rgb(120, 164, 194);
 }
 .ul {
     list-style-type: none;
@@ -59,6 +59,19 @@ html {
       display:flex;
       flex-direction: row;
       justify-content: space-evenly;
+
+}
+  .appunto{
+    width: 300px;
+    height: 2px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 10px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 
 }
   

@@ -3,11 +3,11 @@
 @section('content')
 
     <h1>Le mie pagine</h1>
-
+        
         @foreach($pages as $page)
-        <ul>
-            <h4><a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}} <br> </a></h4>
-    </ul>
+        <ul class ="appunto">
+            <a href="/mypages/{{$page->id}}"> {{$page->nome_pagina}} <br> </a>
+        </ul>
         @endforeach
     <div class="crea">
         <h3>Crea una nuova pagina</h3>

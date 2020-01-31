@@ -3,11 +3,6 @@
 @section('content')
     <h1>I miei appunti</h1>
 
-    @foreach($contents as $content)
-        <a href="/content/{{$content->id}}"> {{$content->nome_contenuto}}</a>
-    @endforeach
-
-
     <form method="POST" action="/content" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="pagina" value="{{ $idPagina }}">
@@ -29,5 +24,16 @@
         </select>
         <input type="submit">
     </form>
+
+    @foreach($contents as $content)
+    
+    <ul class = "appunto">
+        <a href="/content/{{$content->id}}"> {{$content->nome_contenuto}}</a>
+    </ul>
+    
+    @endforeach
+
+
+    
 
 @endsection

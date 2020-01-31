@@ -65,7 +65,7 @@
 
             @if(Auth::check())
 
-            <li> <a href="{{route('mypages')}}">HyPages</a></li>
+            <li> <a href="{{route('mypages')}}">MyPages</a></li>
 
             @endif
             
@@ -76,7 +76,7 @@
 
   <!-- ================ End Header Area ================= -->
 
-  @yield("content");
+  @yield("content")
 
 
 
