@@ -20,7 +20,7 @@ class WebContentController extends Controller
                 $extension = 'image/jpeg';
             }elseif ($extension == 'png'){
                     $extension = 'image/png';
-            }elseif ($extension == 'mp3'){
+            }elseif (($extension == 'mpga') || ($extension == 'mp3')){
                 $extension = 'audio/mpeg';
             }elseif ($extension == 'pdf'){
                 $extension = 'application/pdf';
