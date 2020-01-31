@@ -9,7 +9,11 @@
             @csrf
             <input type="hidden" name="pagina" value="{{ $idPagina }}">
             <label>carica un file</label><input type="file" name="appunto" >
-            <label>lingua</label><input type="text" name="lingua">
+            
+            <label>lingua <select name="lingua"> 
+                <option value="italiano">ita</option>
+                <option value="inglese">eng</option>
+            </select></label>
             <label>nome appunto</label><input type="text" name="nome_contenuto">
             <label>argomento</label><input type="text" name="argomento">
             <label>categoria</label>

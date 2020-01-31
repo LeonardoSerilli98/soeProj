@@ -8,7 +8,7 @@
     @foreach($content as $con)
         <h1>Nome Appunto: {{$con->nome_contenuto}}</h1>
 
-        <h3>Anteprima <h5>(da implementare: l'utente vedra solo un numero fissato di pagine, con l'acquisto avra anche un opzione di download)</h5></h3>
+        <h3>Anteprima <h5>(da implementare: l'utente vedra solo un numero fissato di pagine)</h5></h3>
 
         @if($con->tipo_file == "audio/mpeg")
             @if(Auth::check() && $bought)
