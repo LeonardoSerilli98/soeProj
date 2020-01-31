@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Bought;
 
 class WebContentController extends Controller
 {
@@ -53,7 +54,7 @@ class WebContentController extends Controller
 
 
             Auth::user()->update(['num_caricamenti' => (Auth::user()-> num_caricamenti + 1)]);
-            return view('singleContent')->with('content', $content);
+            return view('singleContent')->with('content', $content)->with('bought', true);
 
         }else{
             return 'errore nel caricamento del file';
@@ -63,7 +64,15 @@ class WebContentController extends Controller
 //fornisce un singolo appunto alla view 'singleContent'
     public function show($id)
     {
+        $hasBought = false;
+        if(Auth::check()){
+            $bought = Bought::where('boughts.appunto', '=', $id)->where('boughts.utente', '=', Auth::id())->get();
+            if(!($bought->isEmpty())){
+                $hasBought = true;
+            }
+        }
+
         $content = Content::where('contents.id', '=', $id)->get();
-       return view('singleContent')->with('content', $content);
+        return view('singleContent')->with('content', $content)->with('bought', $hasBought);
     }
 }
