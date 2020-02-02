@@ -39,9 +39,17 @@ class WebContentController extends Controller
 
             $content->save();
 
-            $request->file('appunto')->storeAs('content', $content->id, 'public');
+            if($extension == 'application/pdf'){
+                $request->file('appunto')->storeAs('content', ($content->id).'.pdf', 'public');
 
-            $content->update(['path_contenuto'=> 'storage/content/'.$content->id]);
+                $content->update(['path_contenuto'=> 'storage/content/'.$content->id.'.pdf']);
+
+            }else{
+                $request->file('appunto')->storeAs('content', $content->id, 'public');
+
+                $content->update(['path_contenuto'=> 'storage/content/'.$content->id]);
+            }
+
 
             $content = Content::where('contents.id', '=', $content->id)->get();
 
@@ -64,17 +72,21 @@ class WebContentController extends Controller
 //fornisce un singolo appunto alla view 'singleContent'
     public function show($id)
     {
+
+        $creatore = (Content::find($id))->caricato_da;
         $hasBought = false;
         if(Auth::check()){
             $bought = Bought::where('boughts.appunto', '=', $id)->where('boughts.utente', '=', Auth::id())->get();
             if(!($bought->isEmpty())){
                 $hasBought = true;
-            }elseif (Auth::id()==$id){
+            }elseif (Auth::id()==$creatore){
                 $hasBought = true;
             }
         }
 
         $content = Content::where('contents.id', '=', $id)->get();
+
+
         return view('singleContent')->with('content', $content)->with('bought', $hasBought);
     }
 

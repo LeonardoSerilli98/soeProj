@@ -33,7 +33,7 @@ class contentsController extends Controller
     {
         $newItem = new Content();
         $newItem->pagina = $request->idPagina;
-        $newItem->caricato_da = Auth::id();
+        $newItem->caricato_da = auth()->guard('api')->user()->id;
         $newItem->corso_laurea = $request->corso_laurea;
         $newItem->lingua = $request->lingua;
         $newItem->categoria= $request->categoria;

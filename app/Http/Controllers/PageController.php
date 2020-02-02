@@ -34,7 +34,7 @@ class PageController extends Controller
     {
 
         $newItem = new Page();
-        $newItem->creata_da = 2; //Auth::id();
+        $newItem->creata_da = auth()->guard('api')->user()->id;
         $newItem->nome_pagina = $request->nome_pagina;
         $newItem->materia = $request->materia;
         $newItem->save();
@@ -145,8 +145,7 @@ public function advancedFilter(Request $request)
 
     //variabili necessare alla form di filtraggio avanzato
 
-    $categorie = Category::all();
-    $corsi = Course::all();
+
     $hasResults = 1;
 
     if (!$request->user == 0) {
